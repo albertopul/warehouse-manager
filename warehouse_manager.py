@@ -21,7 +21,7 @@ items = [
 
 sold_items = []
 
-cost_list = []
+costs_list = []
 
 income_list = [] 
 
@@ -46,14 +46,14 @@ def add_item():
             print("Successfully added to warehouse. Current status:")
             get_items()
             exist = True
-        elif exist == False:
-            quantity = input("Quantity: ")
-            unit = input("Unit: ")
-            unit_price = input("Price: ")
-            print("Successfully added to warehouse. Current status:")
-            items.append({"Name" : name, "Quantity" : quantity, "Unit" : unit, "Unit Price (PLN)" : unit_price})
-            get_items()
-            break
+    if exist == False:
+        quantity = input("Quantity: ")
+        unit = input("Unit: ")
+        unit_price = input("Price: ")
+        print("Successfully added to warehouse. Current status:")
+        items.append({"Name" : name, "Quantity" : quantity, "Unit" : unit, "Unit Price (PLN)" : unit_price})
+        get_items()
+    
 
 
 def sell_item():
@@ -63,23 +63,23 @@ def sell_item():
     for obj in items:
         if obj["Name"] == name:
             quantity = int(input("Quantity: "))
-        if quantity <= obj["Quantity"]:
-            obj["Quantity"] -= quantity
-            unit = obj["Unit"]
-            unit_price = obj["Unit Price (PLN)"]
-            print(f"Successfully sold {quantity} {unit} of {name}. Current status:")
-            sold_items.append({"Name" : name, "Quantity" : quantity, "Unit" : unit, "Unit Price (PLN)" : unit_price})
-            get_items()
-            exist = True
-            break
-        if quantity > obj["Quantity"]:
-            print("We don't have so much of it... :(")
-            get_items()
-            exist = True
-            break
-        elif exist == False:
-            print("Product doesn't exist in warehouse!")
-            break
+            if quantity <= obj["Quantity"]:
+                obj["Quantity"] -= quantity
+                unit = obj["Unit"]
+                unit_price = obj["Unit Price (PLN)"]
+                print(f"Successfully sold {quantity} {unit} of {name}. Current status:")
+                sold_items.append({"Name" : name, "Quantity" : quantity, "Unit" : unit, "Unit Price (PLN)" : unit_price})
+                get_items()
+                exist = True
+                break
+            if quantity > obj["Quantity"]:
+                print("We don't have so much of it... :(")
+                get_items()
+                exist = True
+                break
+            elif exist == False:
+                print("Product doesn't exist in warehouse!")
+                break
 
 
 def get_costs():
