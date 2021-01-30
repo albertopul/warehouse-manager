@@ -47,7 +47,7 @@ def add_item():
             get_items()
             exist = True
     if exist == False:
-        quantity = input("Quantity: ")
+        quantity = int(input("Quantity: "))
         unit = input("Unit: ")
         unit_price = input("Price: ")
         print("Successfully added to warehouse. Current status:")
@@ -87,7 +87,7 @@ def get_costs():
         costs = item.get("Quantity") *item.get("Unit Price (PLN)")
         costs_list.append(costs)     
     costs_list_sum = sum(costs_list)
-    print(f"Costs: {costs_list_sum}")
+    print(f"Costs: {int(costs_list_sum)}")
     return costs_list_sum  
 
 
