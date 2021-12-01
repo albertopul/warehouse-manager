@@ -1,27 +1,12 @@
 # Warehouse Manager
-> Outline a brief description of your project.
-
-
-
-## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
-
+> Simple program for cycling store stock management.
+> Adding, selling products. 
+> Export and import stock to/from csv files.
+> Displaying revenue.
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
-
-
-## Features
-List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
+- Python 3.10
+- sys, csv, tabulate, collections modules 
 
 
 ## Screenshots
