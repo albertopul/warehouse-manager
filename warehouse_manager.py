@@ -5,18 +5,17 @@
 #imports
 import sys
 import csv
-import logging
-import tabulate
+from tabulate import tabulate
 import collections
 
 # List of items in store:
 items = [
-    {"Name": "Rama", "Quantity": 34, "Unit": "pcs", "Unit Price (PLN)": 2000},
-    {"Name": "Kierownica", "Quantity": 24, "Unit": "pcs", "Unit Price (PLN)": 701},
-    {"Name": "Mostek", "Quantity": 55, "Unit": "pcs", "Unit Price (PLN)": 321},
-    {"Name": "Przerzutka", "Quantity": 13, "Unit": "pcs", "Unit Price (PLN)": 699},
-    {"Name": "Korba", "Quantity": 42, "Unit": "pcs", "Unit Price (PLN)": 574},
-    {"Name": "Opona", "Quantity": 66, "Unit": "pcs", "Unit Price (PLN)": 212},]
+    {"Name": "Frame", "Quantity": 34, "Unit": "pcs", "Unit Price (PLN)": 2000},
+    {"Name": "Handlebar", "Quantity": 24, "Unit": "pcs", "Unit Price (PLN)": 701},
+    {"Name": "Stem", "Quantity": 55, "Unit": "pcs", "Unit Price (PLN)": 321},
+    {"Name": "Derailleur", "Quantity": 13, "Unit": "pcs", "Unit Price (PLN)": 699},
+    {"Name": "Crankset", "Quantity": 42, "Unit": "pcs", "Unit Price (PLN)": 574},
+    {"Name": "Tire", "Quantity": 66, "Unit": "pcs", "Unit Price (PLN)": 212},]
 
 
 sold_items = []
@@ -32,7 +31,7 @@ csv_columns = ["Name", "Quantity", "Unit", "Unit Price (PLN)"]
 def get_items():
     header = items[0].keys()
     rows = [x.values() for x in items]
-    print(tabulate.tabulate(rows, header))
+    print(tabulate(rows, header))
 
 
 def add_item():
@@ -49,7 +48,7 @@ def add_item():
     if exist == False:
         quantity = int(input("Quantity: "))
         unit = input("Unit: ")
-        unit_price = input("Price: ")
+        unit_price = int(input("Price: "))
         print("Successfully added to warehouse. Current status:")
         items.append({"Name" : name, "Quantity" : quantity, "Unit" : unit, "Unit Price (PLN)" : unit_price})
         get_items()
@@ -84,10 +83,10 @@ def sell_item():
 
 def get_costs():
     for item in items:
-        costs = item.get("Quantity") *item.get("Unit Price (PLN)")
+        costs = item.get("Quantity") * item.get("Unit Price (PLN)")
         costs_list.append(costs)     
     costs_list_sum = sum(costs_list)
-    print(f"Costs: {int(costs_list_sum)}")
+    print(f"Costs: {costs_list_sum}")
     return costs_list_sum  
 
 
@@ -112,7 +111,7 @@ def show_revenue():
 
 def export_items_to_csv(items):
     try:
-        with open("magazyn.csv", 'w') as csvfile:
+        with open("warehouse.csv", 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
             writer.writeheader()
             for item in items:
@@ -122,7 +121,7 @@ def export_items_to_csv(items):
 
 def export_sales_to_csv(sold_items):
     try:
-        with open("ewidencja.csv", 'w') as csvfile:
+        with open("record.csv", 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
             writer.writeheader()
             for item in sold_items:
@@ -132,7 +131,7 @@ def export_sales_to_csv(sold_items):
 
 def load_items_from_csv(items):
     try:
-        with open("magazyn.csv", newline='') as csvfile:
+        with open("warehouse.csv", newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 items.append(row)      
@@ -142,7 +141,7 @@ def load_items_from_csv(items):
 
 def load_sold_items_from_csv(sold_items):
     try:
-        with open("ewidencja.csv", newline='') as csvfile:
+        with open("record.csv", newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 sold_items.append(row) 
@@ -166,15 +165,15 @@ while(True):
     elif hello == "save":
         export_items_to_csv(items)
         export_sales_to_csv(sold_items)
-        print(f"Sucessfully saved data to magazyn.csv")
-        print(f"Sucessfully saved data to ewidencja.csv")
+        print(f"Sucessfully saved data to warehouse.csv")
+        print(f"Sucessfully saved data to record.csv")
     elif hello == "load":
         sold_items.clear()
         items.clear()
         load_items_from_csv(items)
         load_sold_items_from_csv(sold_items)
         print(sys.argv)
-        print(f"Sucessfully loaded data from magazyn.csv")
-        print(f"Sucessfully loaded data from ewidencja.csv")
+        print(f"Sucessfully loaded data from warehouse.csv")
+        print(f"Sucessfully loaded data from record.csv")
     elif hello == "exit":
         sys.exit("Exiting... Bye!")
